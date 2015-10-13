@@ -80,11 +80,13 @@ class Main extends React.Component{
     // Fetch data from github
     api.getBio(this.state.username)
       .then((res) => {
+          console.log('Message' , res.message);
           if (res.message === 'Not Found') {
-              this.state({
+              this.setState({
                 error: 'User not found',
                 isLoading: false
-              })
+              });
+              console.log(this.state.error);
           } else {
             this.props.navigator.push({
                 title: res.name || 'Select an Option',
@@ -101,6 +103,9 @@ class Main extends React.Component{
     // reroute to the next passing that github information
   }
   render() {
+    var showErr = (
+      this.state.error ? <Text>{this.state.error}</Text> : <View></View>
+    );
     return(
       <View style={styles.mainContainer}>
         <Text style={styles.title}>Search for a Github User</Text>
@@ -114,6 +119,12 @@ class Main extends React.Component{
           underlayColor="white">
             <Text style={styles.buttonText}> SEARCH </Text>
         </TouchableHighlight>
+        <ActivityIndicatorIOS
+          animating={this.state.isLoading}
+          color= "#111"
+          size="large">
+        </ActivityIndicatorIOS>
+        {showErr}
       </View>
     )
   }
