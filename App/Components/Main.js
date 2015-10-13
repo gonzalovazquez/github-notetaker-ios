@@ -1,5 +1,7 @@
 var React = require('react-native');
 var api = require('../Utils/api');
+var Dashboard = require('./Dashboard');
+
 var {
   View,
   Text,
@@ -75,7 +77,6 @@ class Main extends React.Component{
     this.setState({
       isLoading: true
     });
-    console.log('SUBMIT', this.state.username);
     // Fetch data from github
     api.getBio(this.state.username)
       .then((res) => {
