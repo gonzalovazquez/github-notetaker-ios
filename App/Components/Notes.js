@@ -45,7 +45,7 @@ var styles = StyleSheet.create({
   }
 });
 
-class Notes extends React.Container{
+class Notes extends React.Component{
   // We need a constructor because we are going to manage state
   constructor(props) {
     super(props);
@@ -66,14 +66,13 @@ class Notes extends React.Container{
     this.setState({
       note: ''
     });
-
     api.addNote(this.props.userInfo.login, note)
       .then((data) => {
           api.getNotes(this.props.userInfo.login)
               .then((data) => {
                 this.setState({
-                  dataSource: this.ds.cloneWithRows(data);
-                });
+                  dataSource: this.ds.cloneWithRows(data)
+                })
               });
       }).catch((error) => {
           console.log('Request failed' , error);
@@ -92,7 +91,7 @@ class Notes extends React.Container{
   }
   footer() {
     return (
-      <View style={styles.footContainer}
+      <View style={styles.footContainer}>
         <TextInput
           style={styles.searchInput}
           value={this.state.note}
@@ -101,20 +100,22 @@ class Notes extends React.Container{
           <TouchableHighlight
             style={styles.button}
             onPress={this.handleSubmit.bind(this)}
-            underlayColor="#88D4F5"
+            underlayColor="#88D4F5">
               <Text style={styles.buttonText}> Submit </Text>
           </TouchableHighlight>
       </View>
     )
   }
   render() {
-    <View style={style.container}>
-      <ListView
-        dataSource={this.state.dataSource}
-        render={this.renderRow}
-        renderHeader={() => <Badge = userInfo={this.props.userInfo}/> } />
-      {this.footer()}
-    </View>
+    return(
+      <View style={styles.container}>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow}
+          renderHeader={() => <Badge userInfo={this.props.userInfo}/> } />
+        {this.footer()}
+      </View>
+    )
   }
 }
 
