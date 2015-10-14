@@ -35,6 +35,7 @@ var styles = StyleSheet.create({
 
 class Badge extends React.Component{
   render(){
+    console.log('BADGE' + this.props.userInfo);
     return(
       <View style={styles.container}>
         <Image style={styles.image} source={{ uri: this.props.userInfo.avatar_url }} />
@@ -46,7 +47,7 @@ class Badge extends React.Component{
 };
 
 Badge.propTypes = {
-  userInfo: React.propTypes.object.isRequired
+  //userInfo: React.propTypes.object.isRequired
 };
 
 module.exports = Badge;
