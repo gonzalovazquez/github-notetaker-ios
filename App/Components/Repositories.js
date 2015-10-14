@@ -40,6 +40,7 @@ class Repositories extends React.Component {
     console.log('URL is :', url);
   }
   render(){
+    console.log(this.props);
     var repos = this.props.repos;
     var list = repos.map((item, index) => {
         var desc = repos[index].description ? <Text style={styles.description}> {repos[index].description}</Text> : <View />;
@@ -59,7 +60,7 @@ class Repositories extends React.Component {
         )
     });
     return(
-      <ScrollView style={style.container}>
+      <ScrollView style={styles.container}>
         <Badge userInfo={this.props.userInfo} />
         {list}
       </ScrollView>
